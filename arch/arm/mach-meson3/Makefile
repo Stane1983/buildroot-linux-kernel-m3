@@ -34,6 +34,7 @@ obj-$(CONFIG_MACH_MESON3_REFF16)	+= board-m3-reff16.o
 obj-$(CONFIG_MACH_MESON3_REFF16_GBOX)   += board-m3-reff16-gbox.o
 obj-$(CONFIG_MACH_MESON3_REFF16_GBOX_1) += board-m3-reff16-gbox-1.o
 obj-$(CONFIG_MACH_MESON3_REFF16_BLUEM3) += board-m3-reff16-bluem3.o
+obj-$(CONFIG_MACH_MESON3_REFF16_ATV102) += board-m3-reff16-atv102.o
 obj-$(CONFIG_MACH_MESON3_REFF16_1)	+= board-m3-reff16-1.o
 obj-$(CONFIG_MACH_MESON3_REFF16_DONGLE)	+= board-m3-reff16_dongle.o
 obj-$(CONFIG_MACH_MESON3_REFF20)	+= board-m3-reff20.o

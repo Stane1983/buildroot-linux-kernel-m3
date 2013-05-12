@@ -109,6 +109,20 @@ config MACH_MESON3_REFF16_BLUEM3
         help
           Include support for the Ref M3 board platform.
 
+config MACH_MESON3_REFF16_ATV102
+	select GENERIC_ALLOCATOR
+	bool "Support M3 (Visson) MBX platform"
+	help
+	  Include support for the Ref M3 board platform.
+
+config MACH_MESON3_REFF16_ATV102_512MB
+	select GENERIC_ALLOCATOR
+	bool "Support M3 (Visson) MBX platform with 512Mb RAM"
+	depends on MACH_MESON3_REFF16_ATV102
+	help
+	  Include support for the Ref M3 board platform.
+
+	  
 config MACH_MESON3_REFF16_1
 	select GENERIC_ALLOCATOR
 	bool "Support M3(lenovo) MBX platform"

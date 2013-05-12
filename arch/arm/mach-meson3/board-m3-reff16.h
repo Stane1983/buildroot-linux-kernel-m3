@@ -4,7 +4,16 @@
 #include <asm/page.h>
 
 #define PHYS_MEM_START		(0x80000000)
+
+#if defined(MACH_MESON3_REFF16_ATV102)
+#if defined(MACH_MESON3_REFF16_ATV102_512MB)
+#define PHYS_MEM_SIZE		(512*SZ_1M)
+#else
 #define PHYS_MEM_SIZE		(1024*SZ_1M)
+#endif
+#else
+#define PHYS_MEM_SIZE		(1024*SZ_1M)
+#endif
 #define PHYS_MEM_END		(PHYS_MEM_START + PHYS_MEM_SIZE -1 )
 
 /******** Reserved memory setting ************************/
