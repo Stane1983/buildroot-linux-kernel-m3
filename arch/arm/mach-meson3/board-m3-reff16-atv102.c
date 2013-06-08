@@ -305,7 +305,7 @@ static struct mtd_partition spi_partition_info[] = {
   
     {
         .name = "ubootenv",
-        .offset = 0x7c000,
+        .offset = 0x60000,
         .size = 0x2000,
     },
     /* No need for hash partition ??
