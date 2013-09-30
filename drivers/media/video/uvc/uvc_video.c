@@ -430,8 +430,21 @@ static int uvc_video_decode_start(struct uvc_streaming *stream,
 	/* Increase the sequence number regardless of any buffer states, so
 	 * that discontinuous sequence numbers always indicate lost frames.
 	 */
-	if (stream->last_fid != fid)
-		stream->sequence++;
+	if (stream->last_fid != fid) {
+		if (stream->dev->skip_index > 0) {
+			stream->last_fid = fid;
+			stream->dev->skip_index--;
+			//printk("skip a frame\n");
+			if (stream->dev->skip_index <= 0)
+				stream->last_fid = -1;
+			return -ENODATA;
+		} else
+			stream->sequence++;
+	} else if (stream->dev->skip_index > 0) {
+		return -ENODATA;
+	}
+	
+	
 
 	/* Store the payload FID bit and return immediately when the buffer is
 	 * NULL.
@@ -1108,17 +1121,9 @@ int uvc_video_suspend(struct uvc_streaming *stream)
  * buffers, making sure userspace applications are notified of the problem
  * instead of waiting forever.
  */
-int uvc_video_resume(struct uvc_streaming *stream, int reset)
+int uvc_video_resume(struct uvc_streaming *stream)
 {
 	int ret;
-
-	/* If the bus has been reset on resume, set the alternate setting to 0.
-	 * This should be the default value, but some devices crash or otherwise
-	 * misbehave if they don't receive a SET_INTERFACE request before any
-	 * other video control request.
-	 */
-	if (reset)
-		usb_set_interface(stream->dev->udev, stream->intfnum, 0);
 
 	stream->frozen = 0;
 
@@ -1269,6 +1274,8 @@ int uvc_video_enable(struct uvc_streaming *stream, int enable)
 	ret = uvc_commit_video(stream, &stream->ctrl);
 	if (ret < 0)
 		return ret;
+
+	stream->dev->skip_index = stream->dev->skip_num;
 
 	return uvc_init_video(stream, GFP_KERNEL);
 }
