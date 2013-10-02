@@ -403,7 +403,6 @@ _mali_osk_errcode_t mali_mmu_reset(struct mali_mmu_core *mmu)
 }
 
 
-extern mali_bool mali_group_power_is_on_2(struct mali_group *group);
 /* ------------- interrupt handling below ------------------ */
 
 static _mali_osk_errcode_t mali_mmu_upper_half(void * data)
@@ -412,9 +411,8 @@ static _mali_osk_errcode_t mali_mmu_upper_half(void * data)
 	u32 int_stat;
 
 	MALI_DEBUG_ASSERT_POINTER(mmu);
-	/* Check if it was our device which caused the interrupt (we could be sharing the IRQ line) */
-	//MALI_DEBUG_PRINT(5, ("Mali MMU: %d..\n",mmu->id));
 
+	/* Check if it was our device which caused the interrupt (we could be sharing the IRQ line) */
 	int_stat = mali_hw_core_register_read(&mmu->hw_core, MALI_MMU_REGISTER_INT_STATUS);
 	if (0 != int_stat)
 	{
@@ -436,7 +434,7 @@ static _mali_osk_errcode_t mali_mmu_upper_half(void * data)
 			MALI_PRINT_ERROR(("Mali MMU: Read bus error\n"));
 		}
 		return _MALI_OSK_ERR_OK;
-	} 
+	}
 
 	return _MALI_OSK_ERR_FAULT;
 }
