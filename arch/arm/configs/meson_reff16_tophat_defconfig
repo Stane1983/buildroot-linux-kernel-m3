@@ -1071,12 +1071,13 @@ CONFIG_CMEM=m
 #
 # Mali 400 UMP device driver
 #
-# CONFIG_UMP is not set
+
+CONFIG_UMP=m
 
 #
 # Mali GPU OpenGL device driver
 #
-# CONFIG_MALI400 is not set
+CONFIG_MALI400=m
 
 #
 # AMLOGIC DVB driver
